@@ -120,12 +120,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//            @Override
-//            public void onFailure(Call<Example> call, Throwable t) {
-//                Log.e("ERROR", "SOMETHING WENT WRONG" + t.getMessage());
-//                Toast.makeText(MainActivity.this, "SOMETHING WENT WRONG", Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
     }
 
@@ -173,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.mapicon,menu);
-        getMenuInflater().inflate(R.menu.main_menu,menu);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -189,8 +183,10 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(intent);
 
-
         return super.onOptionsItemSelected(item);
+
+
+
     }
 
 
