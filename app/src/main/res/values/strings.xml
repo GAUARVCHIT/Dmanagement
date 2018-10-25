@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Dmanagement</string>
+    <string name="app_name">DusgsApiExtraction</string>
+    <string name="near_the">Near the</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

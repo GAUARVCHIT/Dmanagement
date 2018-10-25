@@ -1,4 +1,4 @@
-package com.example.gaurav.dmanagement;
+package com.example.gaurav.dusgsapiextraction;
 
 import org.junit.Test;
 
