@@ -59,10 +59,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ArrayList<String> Tsunami=intent.getStringArrayListExtra("Tsunami");
 
         for (int i = 0; i < lat.size(); i++) {
+            if (Tsunami.get(i) == "1") {
+                LatLng sydney = new LatLng((Double.valueOf(lat.get(i))), Double.valueOf(longi.get(i)));
+                mMap.addMarker(new MarkerOptions().position(sydney).title(Dlocation.get(i)).snippet(" Magnitude " + Magnitude.get(i) + ", Red Alert for Tsunami "));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
-            LatLng sydney = new LatLng((Double.valueOf(lat.get(i))), Double.valueOf(longi.get(i)));
-            mMap.addMarker(new MarkerOptions().position(sydney).title(Dlocation.get(i)).snippet(" Magnitude- "+Magnitude.get(i)));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            } else {
+                LatLng sydney = new LatLng((Double.valueOf(lat.get(i))), Double.valueOf(longi.get(i)));
+                mMap.addMarker(new MarkerOptions().position(sydney).title(Dlocation.get(i)).snippet(" Magnitude " + Magnitude.get(i) + ", No Alert for Tsunami "));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            }
         }
 
 
