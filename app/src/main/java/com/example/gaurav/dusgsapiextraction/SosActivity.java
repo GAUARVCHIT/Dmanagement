@@ -1,6 +1,10 @@
 package com.example.gaurav.dusgsapiextraction;
 
 import android.Manifest;
+import com.microsoft.windowsazure.mobileservices.*;
+import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
+import com.microsoft.windowsazure.mobileservices.table.TableOperationCallback;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -19,36 +23,15 @@ import android.widget.Button;
 import android.widget.EdgeEffect;
 import android.widget.EditText;
 import android.widget.Toast;
-/*
-public class SosActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sos);
-        Button button = (Button) findViewById(R.id.button);
-        EditText editText = (EditText) findViewById(R.id.editText);
-        final String phoneNo = editText.getText().toString();
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage("9873291435", null, "Please Help Me. I have been stuck by an EarthQuake here!", null, null);
-                /*Intent sendIntent = new Intent(Intent.ACTION_VIEW);
-                sendIntent.setType("vnd.android-dir/mms-sms");
-                sendIntent.setData(Uri.parse("sms:"+phoneNo));
-                sendIntent.putExtra("sms_body", "Please Help Me. I have been stuck by an EarthQuake here!");
-                startActivity(sendIntent);
-            }
-        });
-    }
-}*/
+import java.net.MalformedURLException;
 
 public class SosActivity extends Activity implements LocationListener {
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS =0 ;
     Button sendBtn;
     EditText txtphoneNo;
     EditText txtMessage;
+    MobileServiceClient mClient;
     LocationManager locationManager;
     Location currentLocation;
     String phoneNo;
@@ -58,6 +41,14 @@ public class SosActivity extends Activity implements LocationListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sos);
+        try {
+            mClient = new MobileServiceClient(
+                    "https://earthquake-sos.azurewebsites.net",
+                    this
+            );
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         sendBtn = (Button) findViewById(R.id.button);
         txtphoneNo = (EditText) findViewById(R.id.editText);
         if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -68,13 +59,6 @@ public class SosActivity extends Activity implements LocationListener {
         sendBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 getLocation();
-                try {
-                    Toast.makeText(getApplicationContext(), "Wait For some Time?(5s)",
-                            Toast.LENGTH_LONG).show();
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 sendSMSMessage();
             }
         });
@@ -93,6 +77,17 @@ public class SosActivity extends Activity implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
+        TodoItem item = new TodoItem();
+        item.Text = "Location: "+location.getLatitude()+","+location.getLongitude();
+        mClient.getTable(TodoItem.class).insert(item, new TableOperationCallback<TodoItem>() {
+            public void onCompleted(TodoItem entity, Exception exception, ServiceFilterResponse response) {
+                if (exception == null) {
+                    // Insert succeeded
+                } else {
+                    // Insert failed
+                }
+            }
+        });
         currentLocation = location;
     }
 
@@ -145,6 +140,11 @@ public class SosActivity extends Activity implements LocationListener {
             case MY_PERMISSIONS_REQUEST_SEND_SMS: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    SmsManager smsManager = SmsManager.getDefault();
+                    smsManager.sendTextMessage(phoneNo, null, message, null, null);
+                    Toast.makeText(getApplicationContext(), "SMS sent.",
+                            Toast.LENGTH_LONG).show();
+
                 } else {
                     Toast.makeText(getApplicationContext(),
                             "SMS failed, please try again.", Toast.LENGTH_LONG).show();
