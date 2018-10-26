@@ -13,11 +13,19 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        ImageButton equake= (ImageButton) findViewById(R.id.imageButton2);
+        ImageButton equake= (ImageButton) findViewById(R.id.imageButton);
+        ImageButton sos= (ImageButton) findViewById(R.id.imageButton2);
         equake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        sos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),SosActivity.class);
                 startActivity(intent);
             }
         });

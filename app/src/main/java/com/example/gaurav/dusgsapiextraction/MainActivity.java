@@ -169,10 +169,6 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.mapicon,menu);
-<<<<<<< HEAD
-=======
-
->>>>>>> 011b4a997c734bf87c1628ea54ff7d63b25944ca
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -184,15 +180,8 @@ public class MainActivity extends AppCompatActivity {
         intent.putStringArrayListExtra("longitude",Longitude);
         intent.putStringArrayListExtra("Dlocation",Dlocation);
         intent.putStringArrayListExtra("Magnitude",Magnitude);
-<<<<<<< HEAD
-        startActivity(intent);
-=======
         intent.putStringArrayListExtra("Tsunami",Tsunami);
-
-
         startActivity(intent);
-
->>>>>>> 011b4a997c734bf87c1628ea54ff7d63b25944ca
         return super.onOptionsItemSelected(item);
 
 
