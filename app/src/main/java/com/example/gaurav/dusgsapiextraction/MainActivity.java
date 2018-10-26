@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> Longitude=new ArrayList<String>();
     ArrayList<String> Dlocation=new ArrayList<String>();
     ArrayList<String> Magnitude=new ArrayList<String>();
+    ArrayList<String> Tsunami=new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
                     Longitude.add(featureList.get(i).getGeometry().getCoordinates().get(0).toString());
                     Dlocation.add(featureList.get(i).getProperties().getPlace());
                     Magnitude.add(featureList.get(i).getProperties().getMag().toString());
+                    Tsunami.add(featureList.get(i).getProperties().getTsunami().toString());
 
 
 
@@ -179,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putStringArrayListExtra("longitude",Longitude);
         intent.putStringArrayListExtra("Dlocation",Dlocation);
         intent.putStringArrayListExtra("Magnitude",Magnitude);
+        intent.putStringArrayListExtra("Tsunami",Tsunami);
 
 
         startActivity(intent);
