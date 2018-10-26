@@ -1,6 +1,7 @@
 package com.example.gaurav.dusgsapiextraction;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -30,7 +31,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     Long timeInMilliseconds;
     Date dateObject;
     String dateToDisplay;
-    SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd h:mma");
+    SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy h:mma");
     public String originalTime;
     public static final String TIME_SEPARATOR = " ";
     public String presentDate;
@@ -38,7 +39,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     //    DecimalFormat formatter = new DecimalFormat("0.0");
 //   String output;
-    double finalValue;
     TextView magnitudeView;
 
 
@@ -63,7 +63,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
 
 
-        Feature featureLists = featureList.get(position);
+        final Feature featureLists = featureList.get(position);
 //      output = formatter.format(featureLists.getProperties().getMag().toString());
         DecimalFormat df = new DecimalFormat("0.0");
         String formate = df.format(featureLists.getProperties().getMag());
@@ -114,6 +114,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         Log.d(TAG, "present Date :" + presentDate + "\n" + "present Time :" + presentTime);
         holder.date.setText(presentDate);
         holder.time.setText(presentTime);
+
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context,web_view.class);
+                intent.putExtra("url",featureLists.getProperties().getUrl());
+                context.startActivity(intent);
+            }
+        });
 
 
     }
