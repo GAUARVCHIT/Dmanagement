@@ -1,14 +1,22 @@
 package com.example.gaurav.dusgsapiextraction;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -39,7 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
 
         Intent intent = getIntent();
@@ -48,11 +56,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ArrayList<String> longi = intent.getStringArrayListExtra("longitude");
         ArrayList<String> Dlocation=intent.getStringArrayListExtra("Dlocation");
         ArrayList<String> Magnitude=intent.getStringArrayListExtra("Magnitude");
+        ArrayList<String> Tsunami=intent.getStringArrayListExtra("Tsunami");
 
         for (int i = 0; i < lat.size(); i++) {
+
             LatLng sydney = new LatLng((Double.valueOf(lat.get(i))), Double.valueOf(longi.get(i)));
-            mMap.addMarker(new MarkerOptions().position(sydney).title(Dlocation.get(i)+ ", Mag "+Magnitude.get(i)));
+            mMap.addMarker(new MarkerOptions().position(sydney).title(Dlocation.get(i)).snippet(" Magnitude- "+Magnitude.get(i)));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         }
+
+
+
+
+
     }
 }
