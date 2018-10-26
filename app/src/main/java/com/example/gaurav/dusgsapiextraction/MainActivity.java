@@ -173,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.mapicon,menu);
-        getMenuInflater().inflate(R.menu.main_menu,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -185,17 +184,8 @@ public class MainActivity extends AppCompatActivity {
         intent.putStringArrayListExtra("longitude",Longitude);
         intent.putStringArrayListExtra("Dlocation",Dlocation);
         intent.putStringArrayListExtra("Magnitude",Magnitude);
-
-
         startActivity(intent);
-
-
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
-
 }
 

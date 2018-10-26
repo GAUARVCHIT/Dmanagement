@@ -2,4 +2,6 @@
     <string name="app_name">DusgsApiExtraction</string>
     <string name="near_the">Near the</string>
     <string name="title_activity_maps">Map</string>
+    <string name="earthquake_sos">Earthquake SOS</string>
+    <string name="bottominfo">A simple, quick app to detect and report earthquakes.</string>
 </resources>
